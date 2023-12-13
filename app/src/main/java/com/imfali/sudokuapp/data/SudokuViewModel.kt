@@ -1,5 +1,6 @@
 package com.imfali.sudokuapp.data
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -7,16 +8,12 @@ import com.imfali.sudokuapp.utils.generateSudoku
 import com.imfali.sudokuapp.utils.removeNumbers
 
 class SudokuViewModel : ViewModel() {
-  private val _sudoku = mutableStateOf(generateSudoku())
+  private val _sudoku: MutableState<SudokuData> = mutableStateOf(SudokuData())
   val sudoku: State<SudokuData> = _sudoku
 
-  fun generatePartialSudoku(level: Level) {
+  fun generateSudokuBoard(level: Level){
     val removeNum = if(level == Level.EASY) 30 else if(level == Level.MEDIUM) 40 else 50
-    _sudoku.value = SudokuData(
-      _sudoku.value.board,
-      _sudoku.value.answerBoard,
-      remainingNumber = removeNumbers(_sudoku.value.board, removeNum)
-    )
+    _sudoku.value = generateSudoku(removeNum)
   }
 
   fun updateSelectedCell(cell: Pair<Number, Number>) {
@@ -24,7 +21,8 @@ class SudokuViewModel : ViewModel() {
       _sudoku.value.board,
       _sudoku.value.answerBoard,
       cell,
-      _sudoku.value.remainingNumber
+      _sudoku.value.remainingNumber,
+      _sudoku.value.isInitialized
     )
   }
 
@@ -51,7 +49,8 @@ class SudokuViewModel : ViewModel() {
           else
             num
         }
-        .toMutableList()
+        .toMutableList(),
+      isInitialized = _sudoku.value.isInitialized
     )
   }
 }

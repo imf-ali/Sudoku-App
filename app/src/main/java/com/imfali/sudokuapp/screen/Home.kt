@@ -57,7 +57,7 @@ fun HomeScreen(navController: NavHostController, viewModel: SudokuViewModel) {
             .width(200.dp)
             .padding(top = 10.dp, bottom = 10.dp)
             .clickable {
-              viewModel.generatePartialSudoku(it)
+              viewModel.generateSudokuBoard(it)
               navController.navigate(Screen.GameScreen.route)
             },
           contentAlignment = Alignment.Center
@@ -70,22 +70,24 @@ fun HomeScreen(navController: NavHostController, viewModel: SudokuViewModel) {
         Spacer(modifier = Modifier.padding(bottom = 20.dp))
       }
     }
-    Spacer(modifier = Modifier.padding(top = 30.dp))
-    Box(
-      modifier = Modifier
-        .background(color = ButtonBlue, RoundedCornerShape(10.dp))
-        .width(200.dp)
-        .padding(top = 10.dp, bottom = 10.dp)
-        .clickable {
-          navController.navigate(Screen.GameScreen.route)
-        },
-      contentAlignment = Alignment.Center
-    ){
-      Text(
-        color = Color.White,
-        text = "Continue",
-        fontWeight = FontWeight.Bold
-      )
+    if(viewModel.sudoku.value.isInitialized){
+      Spacer(modifier = Modifier.padding(top = 30.dp))
+      Box(
+        modifier = Modifier
+          .background(color = ButtonBlue, RoundedCornerShape(10.dp))
+          .width(200.dp)
+          .padding(top = 10.dp, bottom = 10.dp)
+          .clickable {
+            navController.navigate(Screen.GameScreen.route)
+          },
+        contentAlignment = Alignment.Center
+      ){
+        Text(
+          color = Color.White,
+          text = "Continue",
+          fontWeight = FontWeight.Bold
+        )
+      }
     }
   }
 }

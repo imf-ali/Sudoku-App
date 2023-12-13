@@ -3,15 +3,34 @@ package com.imfali.sudokuapp.utils
 import com.imfali.sudokuapp.data.SudokuData
 import kotlin.random.Random
 
-fun generateSudoku(): SudokuData {
+fun generateSudoku(removeNum: Int): SudokuData {
   val size = 9
   val initialBoard: MutableList<MutableList<Pair<Number, Boolean>>> =
     MutableList(size) { MutableList(size) { Pair(0, false) } }
+  generateDiagonal(initialBoard, 0)
   solveSudoku(initialBoard, 0, 0)
   return SudokuData(
     board = initialBoard,
-    answerBoard = initialBoard.map { innerList -> innerList.map { it.first } }
+    answerBoard = initialBoard.map { innerList -> innerList.map { it.first } },
+    remainingNumber = removeNumbers(initialBoard, removeNum),
+    isInitialized = true
   )
+}
+
+fun generateDiagonal(board: MutableList<MutableList<Pair<Number, Boolean>>>, index: Int): Boolean {
+  if(index == 9)
+    return true
+  val valid = false
+  while (!valid){
+    val num = Random.nextInt(1,10)
+    if(isValid(board, index, index, num)){
+      board[index][index] = Pair(num, false)
+      if(generateDiagonal(board, index + 1))
+        return true
+      board[index][index] = Pair(0, false)
+    }
+  }
+  return false
 }
 
 private fun solveSudoku(
