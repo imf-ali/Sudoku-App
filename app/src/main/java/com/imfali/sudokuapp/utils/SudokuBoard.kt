@@ -5,12 +5,12 @@ import kotlin.random.Random
 
 fun generateSudoku(): SudokuData {
   val size = 9
-  val initialBoard: MutableList<MutableList<Pair<Number, Boolean>>> = MutableList(size) { MutableList(size) { Pair(0, false) } }
+  val initialBoard: MutableList<MutableList<Pair<Number, Boolean>>> =
+    MutableList(size) { MutableList(size) { Pair(0, false) } }
   solveSudoku(initialBoard, 0, 0)
   return SudokuData(
     board = initialBoard,
-    answerBoard = initialBoard.map { innerList -> innerList.map { it.first } },
-    remainingNumber = removeNumbers(initialBoard, 30)
+    answerBoard = initialBoard.map { innerList -> innerList.map { it.first } }
   )
 }
 
