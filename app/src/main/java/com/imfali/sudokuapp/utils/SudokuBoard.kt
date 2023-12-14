@@ -1,10 +1,12 @@
 package com.imfali.sudokuapp.utils
 
+import com.imfali.sudokuapp.data.Level
 import com.imfali.sudokuapp.data.SudokuData
 import kotlin.random.Random
 
-fun generateSudoku(removeNum: Int): SudokuData {
+fun generateSudoku(level: Level): SudokuData {
   val size = 9
+  val removeNum = if(level == Level.EASY) 30 else if(level == Level.MEDIUM) 40 else 50
   val initialBoard: MutableList<MutableList<Pair<Number, Boolean>>> =
     MutableList(size) { MutableList(size) { Pair(0, false) } }
   generateDiagonal(initialBoard, 0)
@@ -13,7 +15,8 @@ fun generateSudoku(removeNum: Int): SudokuData {
     board = initialBoard,
     answerBoard = initialBoard.map { innerList -> innerList.map { it.first } },
     remainingNumber = removeNumbers(initialBoard, removeNum),
-    isInitialized = true
+    isInitialized = true,
+    level = level
   )
 }
 

@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.imfali.sudokuapp.components.GameOverDialog
 import com.imfali.sudokuapp.components.RemainingNumbers
 import com.imfali.sudokuapp.components.ScoreDisplay
 import com.imfali.sudokuapp.components.SudokuRow
@@ -31,7 +32,7 @@ fun Sudoku(navController: NavHostController, viewModel: SudokuViewModel) {
     IconButton(onClick = { navController.navigateUp() }) {
       Icon(imageVector = Icons.Default.KeyboardArrowLeft, contentDescription = "Go to home")
     }
-    ScoreDisplay()
+    ScoreDisplay(viewModel = viewModel)
     Box(
       modifier = Modifier
         .border(2.dp, Color.Black)
@@ -46,4 +47,5 @@ fun Sudoku(navController: NavHostController, viewModel: SudokuViewModel) {
     }
     RemainingNumbers(viewModel)
   }
+  GameOverDialog(navController, viewModel)
 }

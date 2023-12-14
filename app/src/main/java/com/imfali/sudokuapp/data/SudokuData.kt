@@ -6,4 +6,7 @@ data class SudokuData(
   var selected: Pair<Number, Number> = Pair(-1, -1),
   var remainingNumber: MutableList<Number> = List(10) { 0 }.toMutableList(),
   var isInitialized: Boolean = false,
+  var score: Number = 0,
+  var mistake: Number = 0,
+  var level: Level = Level.EASY
 )
