@@ -49,11 +49,15 @@ class SudokuViewModel : ViewModel() {
     val board = _sudoku.value.board
     val remainingNumber = _sudoku.value.remainingNumber
     val answer = _sudoku.value.answerBoard
+    val mistake = _sudoku.value.mistake
+    val cellsToFill = _sudoku.value.level.cellNumber
     if (row == -1 || col == -1 || board[row][col].first == answer[row][col] || remainingNumber[index.toInt()] == 0) {
       return
     }
     if(index == answer[row][col]){
       increaseScore()
+      if (_sudoku.value.score == cellsToFill.toInt() * 10 - mistake.toInt() * 5)
+        increaseScore(100)
     } else {
       increaseMistake()
       decreaseScore()

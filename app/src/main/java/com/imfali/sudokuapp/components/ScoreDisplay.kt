@@ -21,6 +21,7 @@ import com.imfali.sudokuapp.ui.theme.Blue34
 fun ScoreDisplay(viewModel: SudokuViewModel){
   val mistake = viewModel.sudoku.value.mistake
   val score = viewModel.sudoku.value.score
+  val level = viewModel.sudoku.value.level
   Column {
     Box(
       modifier = Modifier

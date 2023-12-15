@@ -6,7 +6,7 @@ import kotlin.random.Random
 
 fun generateSudoku(level: Level): SudokuData {
   val size = 9
-  val removeNum = if(level == Level.EASY) 30 else if(level == Level.MEDIUM) 40 else 50
+  val removeNum = level.cellNumber.toInt()
   val initialBoard: MutableList<MutableList<Pair<Number, Boolean>>> =
     MutableList(size) { MutableList(size) { Pair(0, false) } }
   generateDiagonal(initialBoard, 0)

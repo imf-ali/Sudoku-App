@@ -32,15 +32,15 @@ fun GameOverDialog(navController: NavHostController, viewModel: SudokuViewModel)
   val mistake = viewModel.sudoku.value.mistake
   val score = viewModel.sudoku.value.score
 
-  val cellsToFill = if(level == Level.EASY) 30 else if(level == Level.MEDIUM) 40 else 50
-  val gameDone = (score == cellsToFill * 10 - mistake.toInt() * 5)
+  val cellsToFill = level.cellNumber.toInt()
+  val gameDone = (score == cellsToFill * 10 - mistake.toInt() * 5 + 100)
 
   if(mistake == 3 || gameDone){
     Dialog(onDismissRequest = { }) {
       Card(
         modifier = Modifier
           .fillMaxWidth()
-          .height(250.dp)
+          .height(if(gameDone) 300.dp else 250.dp)
           .padding(16.dp),
         shape = RoundedCornerShape(16.dp),
       ) {
@@ -58,6 +58,14 @@ fun GameOverDialog(navController: NavHostController, viewModel: SudokuViewModel)
           Spacer(modifier = Modifier.padding(top = 5.dp))
           Text(text = if (gameDone) "You solved the puzzle!" else "You made 3 mistakes")
           Spacer(modifier = Modifier.padding(top = 25.dp))
+          if(gameDone){
+            Text(
+              text = "Your Score: ${score}",
+              fontWeight = FontWeight.Bold,
+              fontSize = 20.sp
+            )
+            Spacer(modifier = Modifier.padding(top = 25.dp))
+          }
           Row {
             Button(
               shape = RoundedCornerShape(10.dp),
