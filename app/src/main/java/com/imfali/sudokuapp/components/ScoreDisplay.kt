@@ -44,7 +44,6 @@ fun ScoreDisplay(viewModel: SudokuViewModel){
       horizontalArrangement = Arrangement.SpaceBetween
     ) {
       Text(text = "Mistakes: ${mistake}/3")
-      Text(text = "00:00")
     }
   }
 }
