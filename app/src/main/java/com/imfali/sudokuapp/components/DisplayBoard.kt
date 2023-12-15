@@ -16,6 +16,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -57,9 +59,27 @@ fun SudokuCell(viewModel: SudokuViewModel, rowIndex: Int, colIndex: Int) {
           && (selected.second.toInt() >= (colIndex / 3) * 3) && (selected.second.toInt() < ((colIndex / 3) + 1) * 3))
   Box(
     modifier = Modifier
-      .size(40.dp)
-      .border(0.5.dp, Color.Gray)
+      .size(37.dp)
+      .border(0.3.dp, Color.Gray)
       .background(if (isSelected) Selected else (if (isInRange) MyGray else Color.White))
+      .drawBehind {
+        if (colIndex == 2 || colIndex == 5) {
+          drawLine(
+            color = Color.Black,
+            start = Offset(size.width, 0f),
+            end = Offset(size.width, size.height),
+            strokeWidth = 3.dp.toPx()
+          )
+        }
+        if (rowIndex == 2 || rowIndex == 5) {
+          drawLine(
+            color = Color.Black,
+            start = Offset(0f, size.height),
+            end = Offset(size.width, size.height),
+            strokeWidth = 3.dp.toPx()
+          )
+        }
+      }
       .clickable {
         viewModel.updateSelectedCell(Pair(rowIndex, colIndex))
       },
@@ -81,7 +101,7 @@ fun SudokuCell(viewModel: SudokuViewModel, rowIndex: Int, colIndex: Int) {
             Color.Red
           ),
       modifier = Modifier.align(Alignment.Center),
-      fontSize = 30.sp
+      fontSize = 23.sp
     )
   }
 }

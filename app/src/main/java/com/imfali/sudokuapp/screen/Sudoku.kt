@@ -36,7 +36,7 @@ fun Sudoku(navController: NavHostController, viewModel: SudokuViewModel) {
     Box(
       modifier = Modifier
         .border(2.dp, Color.Black)
-        .width(360.dp)
+        .width(333.dp)
         .align(Alignment.CenterHorizontally)
     ) {
       LazyColumn {

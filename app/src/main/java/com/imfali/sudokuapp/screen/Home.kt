@@ -11,12 +11,16 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -40,7 +44,7 @@ fun HomeScreen(navController: NavHostController, viewModel: SudokuViewModel) {
     )
     Text(
       modifier = Modifier
-        .padding(top = 100.dp, bottom = 20.dp)
+        .padding(top = 130.dp, bottom = 20.dp)
         .align(alignment = Alignment.CenterHorizontally),
       color = ButtonBlue,
       fontSize = 20.sp,
@@ -51,38 +55,39 @@ fun HomeScreen(navController: NavHostController, viewModel: SudokuViewModel) {
       horizontalAlignment = Alignment.CenterHorizontally
     ){
       items(level) {
-        Box(
-          modifier = Modifier
-            .border(2.dp, Color.Black, RoundedCornerShape(10.dp))
-            .width(200.dp)
-            .padding(top = 10.dp, bottom = 10.dp)
-            .clickable {
-              viewModel.generateSudokuBoard(it)
-              navController.navigate(Screen.GameScreen.route)
-            },
-          contentAlignment = Alignment.Center
-        ){
+        OutlinedButton(
+          modifier= Modifier
+            .width(200.dp),
+          shape = RoundedCornerShape(10.dp),
+          onClick = {
+            viewModel.generateSudokuBoard(it)
+            navController.navigate(Screen.GameScreen.route)
+          }
+        ) {
           Text(
+            modifier = Modifier.padding(top = 5.dp, bottom = 5.dp),
             text = it.name,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            color = Color.Black
           )
         }
-        Spacer(modifier = Modifier.padding(bottom = 20.dp))
+        Spacer(modifier = Modifier.padding(bottom = 10.dp))
       }
     }
     if(viewModel.sudoku.value.isInitialized){
       Spacer(modifier = Modifier.padding(top = 30.dp))
-      Box(
-        modifier = Modifier
-          .background(color = ButtonBlue, RoundedCornerShape(10.dp))
+      Button(
+        modifier= Modifier
           .width(200.dp)
-          .padding(top = 10.dp, bottom = 10.dp)
-          .clickable {
-            navController.navigate(Screen.GameScreen.route)
-          },
-        contentAlignment = Alignment.Center
-      ){
+          .padding(top = 10.dp, bottom = 10.dp),
+        shape = RoundedCornerShape(10.dp),
+        colors = ButtonDefaults.buttonColors(ButtonBlue),
+        onClick = {
+          navController.navigate(Screen.GameScreen.route)
+        }
+      ) {
         Text(
+          modifier = Modifier.padding(top = 5.dp, bottom = 5.dp),
           color = Color.White,
           text = "Continue",
           fontWeight = FontWeight.Bold

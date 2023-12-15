@@ -37,7 +37,8 @@ fun RemainingNumbers(viewModel: SudokuViewModel){
         Box(
           modifier = Modifier
             .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
-            .width(38.dp),
+            .padding(top = 4.dp, bottom = 4.dp)
+            .width(35.dp),
         ) {
           Column(
             modifier = Modifier
@@ -47,8 +48,8 @@ fun RemainingNumbers(viewModel: SudokuViewModel){
               },
             horizontalAlignment = Alignment.CenterHorizontally
           ) {
-            Text(text = (index).toString(), fontSize = 35.sp, color = Blue34)
-            Text(text = (number).toString())
+            Text(text = (index).toString(), fontSize = 27.sp, color = Blue34)
+            Text(text = (number).toString(), fontSize = 13.sp)
           }
         }
       }

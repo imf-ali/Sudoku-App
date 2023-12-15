@@ -38,12 +38,12 @@ fun ScoreDisplay(viewModel: SudokuViewModel){
     }
     Row(
       modifier = Modifier
-        .width(360.dp)
+        .width(333.dp)
         .padding(bottom = 5.dp)
         .align(alignment = Alignment.CenterHorizontally),
       horizontalArrangement = Arrangement.SpaceBetween
     ) {
-      Text(text = "Mistakes: ${mistake}/3")
+      Text(text = "Mistakes: ${mistake}/3", fontSize = 13.sp)
     }
   }
 }
